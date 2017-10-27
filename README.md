@@ -1,6 +1,8 @@
 # -list
 @list is an application to manage lists through text messages
 
+## Video Tutorial
+
 ## Usage
 
 ## Setup
