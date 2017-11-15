@@ -14,6 +14,14 @@ print(result)
 print(simplenote.get_note("a31b6fa882c94c61ba53c52e0230798c")[0]["content"])
 """
 
+def format_list_name(list_name):
+    list_name = list_name.strip()
+    list_name = list_name.strip(":")
+    list_name = list_name.replace(" ", "") #remove all whitespace
+    list_name = list_name.replace("#", "") #replace all list beginnings
+    return list_name
+    #TODO: add support for "/" or multi-named lists
+
 
 
 
@@ -22,14 +30,11 @@ def profile_lists(message_body):
     list_names = []
     for split in lists_split:
         list_name = split.split("\n")[0]
-        list_name = list_name.strip()
-        list_name = list_name.strip(":")
-        list_name = list_name.replace(" ", "")
+        list_name = format_list_name(list_name)
         list_names.append(list_name)
-        #TODO: add support for "/" or multi-named lists
     return list_names
 
-    
+
 
 def add_keys_and_list_names():
     result = simplenote.get_note_list()
@@ -38,11 +43,14 @@ def add_keys_and_list_names():
         for entry in result[0]:
             if entry["deleted"] == 0:
                 note_id = entry["key"]
-                print(entry["tags"])
+                if(entry and entry["tags"]):
+                    print(entry["tags"])
                 message_body = simplenote.get_note(note_id)[0]["content"]
                 list_names = profile_lists(message_body)
+                print(list_names)
                 #my_dict[note_id] = list_names
                 print()
+            break
         print(my_dict)
 
 
