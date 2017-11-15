@@ -43,14 +43,15 @@ def add_keys_and_list_names():
         for entry in result[0]:
             if entry["deleted"] == 0:
                 note_id = entry["key"]
-                if(entry and entry["tags"]):
-                    print(entry["tags"])
                 message_body = simplenote.get_note(note_id)[0]["content"]
                 list_names = profile_lists(message_body)
                 print(list_names)
-                #my_dict[note_id] = list_names
+
+                tags = entry["tags"]
+                if(entry and tags):
+                    for tag in tags:
+                        my_dict[tag] = list_names
                 print()
-            break
         print(my_dict)
 
 
