@@ -39,20 +39,22 @@ def profile_lists(message_body):
 def add_keys_and_list_names():
     result = simplenote.get_note_list()
     with open('my_dict.json') as f:
-        my_dict = json.load(f)
+        my_dict = {}
         for entry in result[0]:
             if entry["deleted"] == 0:
                 note_id = entry["key"]
                 message_body = simplenote.get_note(note_id)[0]["content"]
                 list_names = profile_lists(message_body)
-                print(list_names)
 
                 tags = entry["tags"]
                 if(entry and tags):
                     for tag in tags:
-                        my_dict[tag] = list_names
-                print()
+                        result_dict = {}
+                        result_dict["list_id"] = note_id
+                        result_dict["list_names"] = list_names
+                        my_dict[tag] = result_dict
         print(my_dict)
+        json.dumps(my_dict)
 
 
 
