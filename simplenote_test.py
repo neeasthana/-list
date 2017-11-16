@@ -19,6 +19,7 @@ def format_list_name(list_name):
     list_name = list_name.strip(":")
     list_name = list_name.replace(" ", "") #remove all whitespace
     list_name = list_name.replace("#", "") #replace all list beginnings
+    list_name = list_name.upper()
     return list_name
     #TODO: add support for "/" or multi-named lists
 
@@ -38,7 +39,7 @@ def profile_lists(message_body):
 
 def add_keys_and_list_names():
     result = simplenote.get_note_list()
-    with open('my_dict.json') as f:
+    with open('my_dict.json', 'w') as f:
         my_dict = {}
         for entry in result[0]:
             if entry["deleted"] == 0:
@@ -52,9 +53,9 @@ def add_keys_and_list_names():
                         result_dict = {}
                         result_dict["list_id"] = note_id
                         result_dict["list_names"] = list_names
-                        my_dict[tag] = result_dict
+                        my_dict[tag.upper()] = result_dict
         print(my_dict)
-        json.dumps(my_dict)
+        json.dump(my_dict, f)
 
 
 
