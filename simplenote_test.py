@@ -1,8 +1,11 @@
 import simplenote
 import json
 
-username = "neeasthana@gmail.com"
-password = "Waterbottle94"
+with open('passwords.json', 'r') as passwords_file:
+    passwords = json.load(passwords_file)
+
+username = passwords["simplenote_username"]
+password = passwords["simplenote_password"]
 
 
 simplenote = simplenote.Simplenote(username, password)
