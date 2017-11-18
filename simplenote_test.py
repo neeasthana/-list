@@ -92,12 +92,21 @@ def get_index_from_list_name(tag_entry, tag_name, list_name = None):
         return None
 
 
+def process(message_body):
+    # read tag name
+    # read list name
+    # get coresponding list_id and list location
+    # update list with message
+
+
 
 def test(message_body):
+    message_body = message_body.strip()
     message_split = message_body.split(" ")
     if message_split[0][0] is "@":
         message_body = " ".join(message_split[1:])
         
+
         lists_split = message_body.split("\n\n\n")
     else:
         print("Error. Message does not start with a list name")
