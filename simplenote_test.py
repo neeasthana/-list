@@ -74,15 +74,18 @@ def get_lists_from_tag(tag):
 
 
 
-def get_index_from_list_name(tag_entry, list_name = None):
+def get_index_from_list_name(tag_entry, tag_name, list_name = None):
     if list_name is not None:
         list_name= list_name.upper()
     
     list_names = tag_entry["list_names"]
     
     if list_name is None:
-        return 0
-    elif list_name in list_names:
+        if tag_name in list_names:
+            list_name = tag_name
+        else:
+            return 0
+    if list_name in list_names:
         return list_names.index(list_name)
     else:
         raise Exception("List Name is not in database. Consider refreshing the database or supplying another list name")
@@ -96,16 +99,15 @@ def test(message_body):
         message_body = " ".join(message_split[1:])
         
         lists_split = message_body.split("\n\n\n")
-
-
-
     else:
         print("Error. Message does not start with a list name")
+
+
 
 if __name__ == '__main__':
     #test("@list something else is here")
 
     #add_keys_and_list_names()
     #print(simplenote.get_note("a31b6fa882c94c61ba53c52e0230798c")[0]["content"])
-    print(get_lists_from_tag("ideas"))
-    print(get_index_from_list_name(get_lists_from_tag("ideas"), "possibleprojects"))
+    print(get_lists_from_tag("applied"))
+    print(get_index_from_list_name(get_lists_from_tag("applied"), "APPLIED"))
