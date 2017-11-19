@@ -94,10 +94,22 @@ def get_index_from_list_name(tag_entry, tag_name, list_name = None):
 
 def process(message_body):
     # read tag name
+    message_body = message_body.strip()
+    message_split = message_body.split(" ")
+    if message_split[0][0] is "@":
+        tag = message_split[0][1:]
+        message_body = " ".join(message_split[1:])
+
+        lists_split = message_body.split("\n\n\n")
+    else:
+        raise Exception("Error. Message does not start with a list name")
+
+    print(tag)
+    print(message_body)
+
     # read list name
     # get coresponding list_id and list location
     # update list with message
-
 
 
 def test(message_body):
@@ -114,9 +126,9 @@ def test(message_body):
 
 
 if __name__ == '__main__':
-    #test("@list something else is here")
+    process("@list something else is here")
 
     #add_keys_and_list_names()
     #print(simplenote.get_note("a31b6fa882c94c61ba53c52e0230798c")[0]["content"])
-    print(get_lists_from_tag("applied"))
-    print(get_index_from_list_name(get_lists_from_tag("applied"), "APPLIED"))
+    #print(get_lists_from_tag("applied"))
+    #print(get_index_from_list_name(get_lists_from_tag("applied"), "APPLIED"))
