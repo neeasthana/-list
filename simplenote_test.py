@@ -1,6 +1,10 @@
 import simplenote
 import json
 
+# GLOBALS
+list_separator = "\n\n\n\n"
+
+
 with open('passwords.json', 'r') as passwords_file:
     passwords = json.load(passwords_file)
 
@@ -30,7 +34,7 @@ def format_list_name(list_name):
 
 
 def profile_lists(message_body):
-    lists_split = message_body.split("\n\n\n\n")
+    lists_split = message_body.split(list_separator)
     list_names = []
     for split in lists_split:
         list_name = split.split("\n")[0]
@@ -92,6 +96,17 @@ def get_index_from_list_name(tag_entry, tag_name, list_name = None):
         return None
 
 
+
+def add_to_list(list_text, list_index, list_entry):
+    lists_split = list_text.split(list_separator)
+    target_list = lists_split[list_index]
+    target_list = target_list + "\n- " + list_entry
+    lists_split[list_index] = target_list
+    lists_merge = list_separator.join(lists_split)
+    return lists_merge
+
+
+
 def process(message_body):
     # read tag name
     message_body = message_body.strip()
@@ -104,11 +119,22 @@ def process(message_body):
     else:
         raise Exception("Error. Message does not start with a list name")
 
+    tag_entry = get_lists_from_tag(tag)
     print(tag)
     print(message_body)
+    print(tag_entry)
 
-    # read list name
+    # read list name TODO
+    list_index = get_index_from_list_name(tag_entry, tag)
+    print(list_index)
+    
+    # get list 
+    list_text = simplenote.get_note(tag_entry["list_id"])[0]["content"]
+
     # get coresponding list_id and list location
+    updated_list = add_to_list(list_text, list_index, "something")
+    print(updated_list)
+    # insert text entry in correct location
     # update list with message
 
 
@@ -126,7 +152,7 @@ def test(message_body):
 
 
 if __name__ == '__main__':
-    process("@list something else is here")
+    process("@books something else is here")
 
     #add_keys_and_list_names()
     #print(simplenote.get_note("a31b6fa882c94c61ba53c52e0230798c")[0]["content"])
