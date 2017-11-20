@@ -121,19 +121,27 @@ def process(message_body):
 
     tag_entry = get_lists_from_tag(tag)
     print(tag)
-    print(message_body)
-    print(tag_entry)
+    #print(message_body)
+    #print(tag_entry)
 
     # read list name TODO
     list_index = get_index_from_list_name(tag_entry, tag)
-    print(list_index)
+    #print(list_index)
     
-    # get list 
-    list_text = simplenote.get_note(tag_entry["list_id"])[0]["content"]
+    # get list
+    list_object = simplenote.get_note(tag_entry["list_id"])
+    list_text = list_object[0]["content"]
 
     # get coresponding list_id and list location
-    updated_list = add_to_list(list_text, list_index, "something")
-    print(updated_list)
+    updated_list = add_to_list(list_text, list_index, message_body)
+
+    #list_object[0]["content"] = updated_list
+    result = {"key":tag_entry["list_id"], "content":updated_list}
+
+    #print(result)
+
+    print(simplenote.update_note(result))
+    #print(simplenote.get_note(tag_entry["list_id"])[0]["content"])
     # insert text entry in correct location
     # update list with message
 
@@ -143,7 +151,6 @@ def test(message_body):
     message_split = message_body.split(" ")
     if message_split[0][0] is "@":
         message_body = " ".join(message_split[1:])
-        
 
         lists_split = message_body.split("\n\n\n")
     else:
@@ -152,7 +159,9 @@ def test(message_body):
 
 
 if __name__ == '__main__':
-    process("@books something else is here")
+    new_list = process("@phipsi something else is here")
+
+    #list_text = simplenote.get_note(tag_entry["list_id"])
 
     #add_keys_and_list_names()
     #print(simplenote.get_note("a31b6fa882c94c61ba53c52e0230798c")[0]["content"])
