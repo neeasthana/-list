@@ -1,4 +1,5 @@
 import sys
+import json
 import simplenote
 from flask import Flask, request, redirect
 from twilio.twiml.messaging_response import Body, Message, Redirect, MessagingResponse
