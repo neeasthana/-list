@@ -47,7 +47,7 @@ def sms():
 
 
 def check_for_refresh(message_body):
-    if message_body.upper() is "REFRESH":
+    if message_body.strip().upper() is "REFRESH":
         add_keys_and_list_names()
         return True
     return False
