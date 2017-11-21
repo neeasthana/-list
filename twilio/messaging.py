@@ -32,6 +32,9 @@ def sms():
     number = request.form['From']
     message_body = request.form['Body']
     
+    if check_for_refresh(message_body):
+        return
+
     process(message_body)
 
 
@@ -40,6 +43,14 @@ def sms():
     resp.message("Added to the list")
     #print('Hello {}, you said: {}'.format(number, message_body))
     return str(resp)
+
+
+
+def check_for_refresh(message_body):
+    if message_body.upper() is "REFRESH":
+        add_keys_and_list_names()
+        return True
+    return False
 
 
 
