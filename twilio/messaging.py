@@ -153,12 +153,16 @@ def process(message_body):
         raise Exception("Error. Message does not start with a list name")
 
     tag_entry = get_lists_from_tag(tag)
-    print(tag)
-    #print(message_body)
-    #print(tag_entry)
+
+    if message_split[1][0] is "#":
+        list_name = message_split[1][1:]
+        message_body = " ".join(message_split[2:])
+    else:
+        list_name = tag
 
     # read list name TODO
-    list_index = get_index_from_list_name(tag_entry, tag)
+    print(tag + " - " + list_name)
+    list_index = get_index_from_list_name(tag_entry, list_name)
     #print(list_index)
     
     # get list
@@ -173,7 +177,7 @@ def process(message_body):
 
     #print(result)
 
-    print(simplenote.update_note(result))
+    #print(simplenote.update_note(result))
     #print(simplenote.get_note(tag_entry["list_id"])[0]["content"])
     # insert text entry in correct location
     # update list with message
