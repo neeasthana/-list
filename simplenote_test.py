@@ -13,15 +13,11 @@ password = passwords["simplenote_password"]
 
 
 simplenote = simplenote.Simplenote(username, password)
-"""
-result = simplenote.get_note_list()
-
-print(result)
-
-print(simplenote.get_note("a31b6fa882c94c61ba53c52e0230798c")[0]["content"])
-"""
 
 def format_list_name(list_name):
+    """
+    Takes a list name as input and processes it so that the app can understand it
+    """
     list_name = list_name.strip()
     list_name = list_name.strip(":")
     list_name = list_name.replace(" ", "") #remove all whitespace
@@ -159,7 +155,7 @@ def test(message_body):
 
 
 if __name__ == '__main__':
-    new_list = process("@phipsi something else is here")
+    new_list = process("@books from many to one")
 
     #list_text = simplenote.get_note(tag_entry["list_id"])
 
