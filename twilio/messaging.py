@@ -26,6 +26,15 @@ print(simplenote.get_note("a31b6fa882c94c61ba53c52e0230798c")[0]["content"])
 
 app = Flask(__name__)
 
+@app.route('/alexa', methods=['POST'])
+def sms():
+    """processing handle for alexa app"""
+    number = request.form['tag_name']
+    number = request.form['list_name']
+    message_body = request.form['Body']
+
+
+
 @app.route('/sms', methods=['POST'])
 def sms():
     # Get message parameters - number and message
