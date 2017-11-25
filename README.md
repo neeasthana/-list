@@ -5,6 +5,8 @@
 
 ## Usage
 
+@<*tag name*> #<*list name*> *text*
+
 ## Setup
 
 ## Technologies
