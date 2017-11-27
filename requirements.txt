@@ -1,2 +1,2 @@
-simplenote
-Flask
+simplenote==1.0.3
+Flask==0.12.2
