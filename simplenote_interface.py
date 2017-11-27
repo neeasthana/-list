@@ -83,6 +83,48 @@ class SimplenoteInterface:
 
 
 
+    ############ ADD TO LIST #############
+    def get_lists_from_tag(self, tag):
+        tag = tag.upper()
+        with open(dictionary_file_name, 'r') as data_file:
+            data = json.load(data_file)
+            if tag in data:
+                return data[tag]
+            else:
+                raise Exception("Tag is not in database. Consider refreshing the database or supplying another list name")
+                return None
+
+
+
+    def get_index_from_list_name(self, tag_entry, tag_name, list_name = None):
+        if list_name is not None:
+            list_name= list_name.upper()
+        
+        list_names = tag_entry["list_names"]
+        
+        if list_name is None:
+            if tag_name in list_names:
+                list_name = tag_name
+            else:
+                return 0
+        if list_name in list_names:
+            return list_names.index(list_name)
+        else:
+            raise Exception("List Name is not in database. Consider refreshing the database or supplying another list name")
+            return None
+
+
+
+    def add_to_list(self, list_text, list_index, list_entry):
+        lists_split = list_text.split(list_separator)
+        target_list = lists_split[list_index]
+        target_list = target_list + "\n- " + list_entry
+        lists_split[list_index] = target_list
+        lists_merge = list_separator.join(lists_split)
+        return lists_merge
+
+
+
 if __name__ == '__main__':
     s = SimplenoteInterface()
     print(s.simplenote)
