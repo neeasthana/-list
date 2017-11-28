@@ -7,6 +7,15 @@
 
 @<*tag name*> #<*list name*> *text*
 
+## Future features
+
+- Multi add from a single text message (split with \\n) - saves money on twilio from sending multiple texts
+- Google home app
+- Amazon Alexa app
+- Repeat checker in lists
+- Spell corrections
+- Multi word list and tag additions
+
 ## Setup
 
 ## Technologies
