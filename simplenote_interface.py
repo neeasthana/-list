@@ -8,6 +8,36 @@ dictionary_file_name = "my_dict.json"
 
 
 
+# GLOBAL FUNCTIONS
+def _format_list_name(list_name):
+    """
+    Takes a list name as input and processes it so that the app can understand it
+    """
+    list_name = list_name.strip()
+    list_name = list_name.strip(":")
+    list_name = list_name.replace(" ", "") #remove all whitespace
+    list_name = list_name.replace("#", "") #replace all list beginnings
+    list_name = list_name.upper()
+    return list_name
+    #TODO: add support for "/" or multi-named lists
+
+
+
+
+def _profile_lists(message_body):
+    """
+    Takes a single big list and splits it into sublists (returned)
+    """
+    lists_split = message_body.split(list_separator)
+    list_names = []
+    for split in lists_split:
+        list_name = split.split("\n")[0]
+        list_name = _format_list_name(list_name)
+        list_names.append(list_name)
+    return list_names
+
+
+
 # Password Handling
 with open(passwords_file_name, 'r') as passwords_file:
     passwords = json.load(passwords_file)
@@ -21,12 +51,13 @@ class SimplenoteInterface:
     Simplenote interface for @list app
     """
 
-    def __init__(self):
+    def __init__(self, reload = True):
         """
         Constructor - initializes simplenote and reloads lists
         """
-        self.simplenote = simplenote.Simplenote(username, password)
-        self.reload_lists()
+        self.simplenote_api = simplenote.Simplenote(username, password)
+        if reload:
+            self.reload_lists()
 
 
 
@@ -34,13 +65,13 @@ class SimplenoteInterface:
         """
         reloads the dictionary file with lists and tags
         """
-        result = simplenote.get_note_list()
+        result = self.simplenote_api.get_note_list()
         with open(dictionary_file_name, 'w') as f:
             my_dict = {}
             for entry in result[0]:
                 if entry["deleted"] == 0:
                     note_id = entry["key"]
-                    message_body = simplenote.get_note(note_id)[0]["content"]
+                    message_body = self.simplenote_api.get_note(note_id)[0]["content"]
                     list_names = _profile_lists(message_body)
 
                     tags = entry["tags"]
@@ -52,34 +83,6 @@ class SimplenoteInterface:
                             my_dict[tag.upper()] = result_dict
             print(my_dict)
             json.dump(my_dict, f)
-
-
-    def _format_list_name(list_name):
-        """
-        Takes a list name as input and processes it so that the app can understand it
-        """
-        list_name = list_name.strip()
-        list_name = list_name.strip(":")
-        list_name = list_name.replace(" ", "") #remove all whitespace
-        list_name = list_name.replace("#", "") #replace all list beginnings
-        list_name = list_name.upper()
-        return list_name
-        #TODO: add support for "/" or multi-named lists
-
-
-
-
-    def _profile_lists(message_body):
-        """
-        Takes a single big list and splits it into sublists (returned)
-        """
-        lists_split = message_body.split(list_separator)
-        list_names = []
-        for split in lists_split:
-            list_name = split.split("\n")[0]
-            list_name = _format_list_name(list_name)
-            list_names.append(list_name)
-        return list_names
 
 
 
@@ -126,5 +129,7 @@ class SimplenoteInterface:
 
 
 if __name__ == '__main__':
-    s = SimplenoteInterface()
-    print(s.simplenote)
+    s = SimplenoteInterface(False)
+    p = s.get_lists_from_tag("books")
+    print(p)
+    print(s.get_index_from_list_name(p, "books"))
