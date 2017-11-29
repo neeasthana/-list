@@ -1,5 +1,6 @@
 import simplenote
 import json
+from simplenote_interface import SimplenoteInterface
 
 # GLOBALS
 list_separator = "\n\n\n\n"
@@ -153,9 +154,42 @@ def test(message_body):
         print("Error. Message does not start with a list name")
 
 
+def test_class(message_body):
+    s = SimplenoteInterface(False)
+
+    message_body = message_body.strip()
+    message_split = message_body.split(" ")
+    if message_split[0][0] is "@":
+        tag = message_split[0][1:]
+        message_body = " ".join(message_split[1:])
+    else:
+        raise Exception("Error. Message does not start with a list name")
+
+    tag_entry = s.get_lists_from_tag(tag)
+
+    if message_split[1][0] is "#":
+        list_name = message_split[1][1:]
+        message_body = " ".join(message_split[2:])
+    else:
+        list_name = tag
+
+    # read list name TODO
+    list_index = s.get_index_from_list_name(tag_entry, tag, list_name)
+    print(tag + " - " + list_name + " - " + str(list_index))
+    #print(list_index)
+    
+    # get list
+    list_object = simplenote.get_note(tag_entry["list_id"])
+    list_text = list_object[0]["content"]
+
+    # get coresponding list_id and list location
+    updated_list_text = s.add_to_list(list_text, list_index, message_body)
+    #result = {"key":tag_entry["list_id"], "content":updated_list}
+    s.update_list(tag_entry["list_id"], updated_list_text)
+
 
 if __name__ == '__main__':
-    new_list = process("@books from many to one")
+    new_list = test_class("@phipsi from many to one")
 
     #list_text = simplenote.get_note(tag_entry["list_id"])
 

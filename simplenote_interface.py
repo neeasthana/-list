@@ -128,6 +128,12 @@ class SimplenoteInterface:
 
 
 
+    def update_list(self, tag_id, updated_list_text):
+        result = {"key":tag_id, "content":updated_list_text}
+        print(self.simplenote_api.update_note(result))
+
+
+
 if __name__ == '__main__':
     s = SimplenoteInterface(False)
     p = s.get_lists_from_tag("books")
