@@ -46,12 +46,12 @@ def sms():
     if check_for_refresh(message_body):
         return
 
-    process(message_body)
+    response = process(message_body)
 
 
     # Send response
     resp = MessagingResponse()
-    resp.message("Added to the list")
+    resp.message(response)
     #print('Hello {}, you said: {}'.format(number, message_body))
     return str(resp)
 
@@ -84,17 +84,19 @@ def process(message_body):
 
     # read list name TODO
     list_index = s.get_index_from_list_name(tag_entry, tag, list_name)
-    print(tag + " - " + list_name + " - " + str(list_index))
-    #print(list_index)
     
     # get list
     list_object = simplenote.get_note(tag_entry["list_id"])
     list_text = list_object[0]["content"]
 
-    # get coresponding list_id and list location
+    # update the corresponding list
     updated_list_text = s.add_to_list(list_text, list_index, message_body)
-    #result = {"key":tag_entry["list_id"], "content":updated_list}
+    
     s.update_list(tag_entry["list_id"], updated_list_text)
+
+    result  = "Added to " tag + " - " + list_name
+    print(result)
+    return result
 
 
  
