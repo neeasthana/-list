@@ -94,7 +94,7 @@ def process(message_body):
     
     s.update_list(tag_entry["list_id"], updated_list_text)
 
-    result  = "Added to " tag + " - " + list_name
+    result  = "Added to " + tag + " - " + list_name
     print(result)
     return result
 
