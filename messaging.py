@@ -29,11 +29,15 @@ print(simplenote.get_note("a31b6fa882c94c61ba53c52e0230798c")[0]["content"])
 app = Flask(__name__)
 
 @app.route('/alexa', methods=['POST'])
-def alexa():
+def alexa(tag_name, list_name):
     """processing handle for alexa app"""
-    number = request.form['tag_name']
-    number = request.form['list_name']
-    message_body = request.form['Body']
+    tag_name = request.form['tag_name']
+    list_name = request.form['list_name']
+    if not list_name or list_name is None or list_name is "":
+        list_name = tag_name
+    message_body = request.form['message_body']
+
+    process(tag, list_name, message_body)
 
 
 
@@ -46,8 +50,21 @@ def sms():
     if check_for_refresh(message_body):
         return
 
-    response = process(message_body)
+    message_body = message_body.strip()
+    message_split = message_body.split(" ")
+    if message_split[0][0] is "@":
+        tag = message_split[0][1:]
+        message_body = " ".join(message_split[1:])
+    else:
+        raise Exception("Error. Message does not start with a list name")
 
+    if message_split[1][0] is "#":
+        list_name = message_split[1][1:]
+        message_body = " ".join(message_split[2:])
+    else:
+        list_name = tag
+
+    response = process(tag, list_name, message_body)
 
     # Send response
     resp = MessagingResponse()
@@ -65,24 +82,8 @@ def check_for_refresh(message_body):
 
 
 
-def process(message_body):
-    message_body = message_body.strip()
-    message_split = message_body.split(" ")
-    if message_split[0][0] is "@":
-        tag = message_split[0][1:]
-        message_body = " ".join(message_split[1:])
-    else:
-        raise Exception("Error. Message does not start with a list name")
-
+def process(tag, list_name, message_body):
     tag_entry = s.get_lists_from_tag(tag)
-
-    if message_split[1][0] is "#":
-        list_name = message_split[1][1:]
-        message_body = " ".join(message_split[2:])
-    else:
-        list_name = tag
-
-    # read list name TODO
     list_index = s.get_index_from_list_name(tag_entry, tag, list_name)
     
     # get list
