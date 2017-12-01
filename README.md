@@ -18,9 +18,13 @@
 
 ## Setup
 
-## Technologies
+## Enabling Technologies
 
 - Simplenote (Simplenote python package)
 - Twilio SMS API
 - Amazon AWS
 - Python3
+
+## References
+
+- Simplenote python wrapper - https://pypi.python.org/pypi/simplenote
