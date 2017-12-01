@@ -1,0 +1,23 @@
+{
+  "intents": [
+    {
+      "intent": "AddToAtListIntent",
+      "slots": [
+        {
+          "name": "tag_name",
+          "type": "string"
+        },
+        {
+          "name": "update_item",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "intent": "AllListReadIntent"
+    },
+    {
+      "intent": "AMAZON.HelpIntent"
+    }
+  ]
+}

@@ -1,2 +1,3 @@
-*.json
+my_dict.json
+passwords.json
 __pycache__
