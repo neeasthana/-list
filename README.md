@@ -1,5 +1,5 @@
-# -list
-@list is an application to manage lists through text messages
+# @list
+@list is an application to manage lists through text messages and through speaking cues using amazon alexa
 
 ## Video Tutorial
 
