@@ -23,7 +23,7 @@
 - Simplenote (Simplenote python package)
 - Twilio SMS API
 - Amazon AWS
-- Python3
+- Python3 Flask Library
 - Amazon Alexa Skills Kit
 - AWS Lambda
 
