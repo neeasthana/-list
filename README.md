@@ -24,6 +24,8 @@
 - Twilio SMS API
 - Amazon AWS
 - Python3
+- Amazon Alexa Skills Kit
+- AWS Lambda
 
 ## References
 
