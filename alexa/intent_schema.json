@@ -5,11 +5,11 @@
       "slots": [
         {
           "name": "tag_name",
-          "type": "string"
+          "type": "AMAZON.LITERAL"
         },
         {
           "name": "update_item",
-          "type": "string"
+          "type": "AMAZON.LITERAL"
         }
       ]
     },
