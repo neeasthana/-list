@@ -1,0 +1,9 @@
+AddToAtListIntent add {zero to one|update_item} to my {books|tag_name} list
+AddToAtListIntent add {beauty and the beast|update_item} to my {movies|tag_name} list
+AddToAtListIntent add {learning to make sushi with mom|update_item} to my {memories|tag_name} list
+AddToAtListIntent add {headlines|update_item} to my {music|tag_name} list
+AddToAtListIntent add {going to the city and visiting brooklyn|update_item} to my {memories|tag_name} list
+AddToAtListIntent add {heart of the city|update_item} to my {music|tag_name} list
+AllListReadIntent what are my list names
+AllListReadIntent what are my lists
+AllListReadIntent what are my tags
