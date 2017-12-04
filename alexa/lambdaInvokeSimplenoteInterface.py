@@ -76,11 +76,10 @@ def create_addition_counter():
     return {"additions": 0}
 
 def increment_addition_counter():
-    return {"additions": 0}
+    return {"additions": 1}
 
-def set_color_in_session(intent, session):
-    """ Sets the color in the session and prepares the speech to reply to the
-    user.
+def add_to_list(intent, session):
+    """ Adds an item to a specified list
     """
 
     card_title = "Success"#intent['name']
