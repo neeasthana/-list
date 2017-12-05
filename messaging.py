@@ -29,7 +29,7 @@ print(simplenote.get_note("a31b6fa882c94c61ba53c52e0230798c")[0]["content"])
 app = Flask(__name__)
 
 @app.route('/alexa', methods=['POST'])
-def alexa(tag_name, list_name):
+def alexa():
     """processing handle for alexa app"""
     tag_name = request.form['tag_name']
     list_name = request.form['list_name']
