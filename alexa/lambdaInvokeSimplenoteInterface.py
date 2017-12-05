@@ -241,3 +241,15 @@ def lambda_handler(event, context):
         return on_intent(event['request'], event['session'])
     elif event['request']['type'] == "SessionEndedRequest":
         return on_session_ended(event['request'], event['session'])
+
+if __name__ == '__main__':
+    intent = {
+        "slots": {
+              "tag_name" : {"value":"books"},
+              "update_item": {"value":"from many to one"}
+            }
+        }
+    intent['slots']['tag_name']['value'] = "books"
+    intent['slots']['update_item']['value'] = "from many to one"
+    print(intent)
+    add_to_list(intent, {})
