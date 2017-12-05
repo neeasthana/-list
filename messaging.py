@@ -37,7 +37,8 @@ def alexa():
         list_name = tag_name
     message_body = request.form['message_body']
 
-    process(tag_name, list_name, message_body)
+    resp = process(tag_name, list_name, message_body)
+    return str(resp)
 
 
 
