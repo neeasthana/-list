@@ -8,6 +8,8 @@ http://amzn.to/1LGWsLG
 """
 
 from __future__ import print_function
+import urllib
+from urllib import request, parse
 
 
 # --------------- Helpers that build all of the responses ----------------------
@@ -90,6 +92,30 @@ def add_to_list(intent, session):
         tag_name = intent['slots']['tag_name']['value']
 
         if 'update_item' in intent['slots']:
+
+            update_item = intent['slots']['update_item']['value']
+
+            populated_url = "http://34.201.91.109:8080/alexa"
+            post_params = {"tag_name": tag_name, "list_name": tag_name, "message_body": update_item}
+         
+            # encode the parameters for Python's urllib
+            data = parse.urlencode(post_params).encode()
+            req = request.Request(populated_url)
+         
+            # add authentication header to request based on Account SID + Auth Token
+            # authentication = "{}:{}".format(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
+            # base64string = base64.b64encode(authentication.encode('utf-8'))
+            # req.add_header("Authorization", "Basic %s" % base64string.decode('ascii'))
+         
+            try:
+                # perform HTTP POST request
+                with request.urlopen(req, data) as f:
+                    print("@List returned {}".format(str(f.read().decode('utf-8'))))
+            except Exception as e:
+                # something went wrong!
+                return e
+
+
             session_attributes = increment_addition_counter()
             speech_output = "Okay. I added that to " + \
                             tag_name + \
