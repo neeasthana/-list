@@ -14,6 +14,23 @@
       ]
     },
     {
+      "intent": "AddToAtTagListIntent",
+      "slots": [
+        {
+          "name": "tag_name",
+          "type": "AMAZON.LITERAL"
+        },
+        {
+          "name": "list_name",
+          "type": "AMAZON.LITERAL"
+        },
+        {
+          "name": "update_item",
+          "type": "AMAZON.LITERAL"
+        }
+      ]
+    },
+    {
       "intent": "AllListReadIntent"
     },
     {
