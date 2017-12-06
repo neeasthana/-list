@@ -6,7 +6,7 @@ AddToAtListIntent add {going to the city and visiting brooklyn|update_item} to m
 AddToAtListIntent add {heart of the city|update_item} to my {music|tag_name} list
 AddToAtTagListIntent add {heart of the city|update_item} to my {music|list_name} list within {music|tag_name}
 AddToAtTagListIntent add {raji fresh beats|update_item} to my {nicknames|list_name} list within {phipsi|tag_name}
-AddToAtTagListIntent add {buying lunch at taco bell|update_item} to my {memories|list_name} list within {2017|tag_name}
+AddToAtTagListIntent add {buying lunch at taco bell|update_item} to my {memories|list_name} list within {memories|tag_name}
 AddToAtTagListIntent add {snorkle on the great barrier reef|update_item} to my {bucket|list_name} list within {bucket list|tag_name}
 AddToAtTagListIntent add {good will hunting|update_item} to my {movies|list_name} list within {movies|tag_name}
 AddToAtTagListIntent add {buying proper fruits and vegetables for my groceries|update_item} to my {problems|list_name} list within {ideas|tag_name}
