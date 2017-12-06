@@ -95,8 +95,12 @@ def add_to_list(intent, session):
 
             update_item = intent['slots']['update_item']['value']
 
+            list_name = tag_name
+            if 'list_name' in intent['slots']:
+                list_name = intent['slots']['list_name']['value']
+
             populated_url = "http://34.201.91.109:8080/alexa"
-            post_params = {"tag_name": tag_name, "list_name": tag_name, "message_body": update_item}
+            post_params = {"tag_name": tag_name, "list_name": list_name, "message_body": update_item}
          
             # encode the parameters for Python's urllib
             data = parse.urlencode(post_params).encode()
@@ -193,6 +197,8 @@ def on_intent(intent_request, session):
     # Dispatch to your skill's intent handlers
     if intent_name == "AddToAtListIntent":
         return add_to_list(intent, session)
+    elif intent_name == "AddToAtTagListIntent":
+        return add_to_list(intent, session)
     elif intent_name == "WhatsMyColorIntent":
         return get_color_from_session(intent, session)
     elif intent_name == "AMAZON.HelpIntent":
@@ -245,11 +251,12 @@ def lambda_handler(event, context):
 if __name__ == '__main__':
     intent = {
         "slots": {
-              "tag_name" : {"value":"books"},
-              "update_item": {"value":"from many to one"}
+              "tag_name" : {"value":"phipsi"},
+              "update_item": {"value":"smash raj"},
+              "list_name": {"value":"nicknames"}
             }
         }
-    intent['slots']['tag_name']['value'] = "books"
-    intent['slots']['update_item']['value'] = "from many to one"
+    #intent['slots']['tag_name']['value'] = "books"
+    #intent['slots']['update_item']['value'] = "from many to one"
     print(intent)
     add_to_list(intent, {})
