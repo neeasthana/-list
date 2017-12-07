@@ -139,3 +139,4 @@ if __name__ == '__main__':
     p = s.get_lists_from_tag("books")
     print(p)
     print(s.get_index_from_list_name(p, "books"))
+    print(" ".join(s.get_lists_from_tag("books")["list_names"]).lower())
