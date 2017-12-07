@@ -42,6 +42,16 @@ def alexa():
 
 
 
+@app.route('/alexaListFromTag', methods=['POST'])
+def alexaListsFromTag():
+    """processing handling for alexa AllListsFromTagIntent intent"""
+    tag_name = request.form['tag_name']
+
+    resp = " ".join(s.get_lists_from_tag("books")["list_names"]).lower()
+    return str(resp)
+
+
+
 @app.route('/sms', methods=['POST'])
 def sms():
     # Get message parameters - number and message
