@@ -86,7 +86,7 @@ def add_to_list(intent, session):
 
     card_title = "Success"#intent['name']
     session_attributes = {}
-    should_end_session = False
+    should_end_session = True
 
     if 'tag_name' in intent['slots']:
         tag_name = intent['slots']['tag_name']['value']
