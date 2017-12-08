@@ -144,18 +144,32 @@ def add_to_list(intent, session):
         card_title, speech_output, reprompt_text, should_end_session))
 
 
-def get_color_from_session(intent, session):
+def get_lists_from_tag(intent, session):
     session_attributes = {}
     reprompt_text = None
 
-    if session.get('attributes', {}) and "favoriteColor" in session.get('attributes', {}):
-        favorite_color = session['attributes']['favoriteColor']
-        speech_output = "Your favorite color is " + favorite_color + \
-                        ". Goodbye."
-        should_end_session = True
+    if 'tag_name' in intent['slots']:
+        tag_name = intent['slots']['tag_name']['value']
+
+        populated_url = "http://34.201.91.109:8080/alexaListFromTag?tag_name="+tag_name
+        # encode the parameters for Python's urllib
+        req = request.Request(populated_url)
+        try:
+            # perform HTTP POST request
+            with request.urlopen(req) as f:
+                response = str(f.read().decode('utf-8'))
+                print("@List returned {}".format(str(f.read().decode('utf-8'))))
+                speech_output = "The lists included in the " + tag_name + " tag are " + response
+                should_end_session = True
+        except Exception as e:
+            # something went wrong!
+            return e
     else:
-        speech_output = "I'm not sure what your favorite color is. " \
-                        "You can say, my favorite color is red."
+        speech_output = "I did not understand the tag name you used. " + \
+                        "Please try again."
+        reprompt_text = "I did not understand the tag name you used. " + \
+                        "You can tell me a tag name by saying, " + \
+                        "add to a specific tag"
         should_end_session = False
 
     # Setting reprompt_text to None signifies that we do not want to reprompt
@@ -199,6 +213,8 @@ def on_intent(intent_request, session):
         return add_to_list(intent, session)
     elif intent_name == "AddToAtTagListIntent":
         return add_to_list(intent, session)
+    elif intent_name == "AllListsFromTagIntent":
+        return get_lists_from_tag(intent, session)
     elif intent_name == "WhatsMyColorIntent":
         return get_color_from_session(intent, session)
     elif intent_name == "AMAZON.HelpIntent":
@@ -252,11 +268,12 @@ if __name__ == '__main__':
     intent = {
         "slots": {
               "tag_name" : {"value":"phipsi"},
-              "update_item": {"value":"smash raj"},
-              "list_name": {"value":"nicknames"}
+              #"update_item": {"value":"smash raj"},
+              #"list_name": {"value":"nicknames"}
             }
         }
     #intent['slots']['tag_name']['value'] = "books"
     #intent['slots']['update_item']['value'] = "from many to one"
     print(intent)
-    add_to_list(intent, {})
+    #add_to_list(intent, {})
+    print(get_lists_from_tag(intent, {}))
