@@ -88,7 +88,7 @@ class SimplenoteInterface:
 
     ############ ADD TO LIST #############
     def get_lists_from_tag(self, tag):
-        tag = tag.upper()
+        tag = _format_list_name(tag)
         with open(dictionary_file_name, 'r') as data_file:
             data = json.load(data_file)
             if tag in data:

@@ -42,12 +42,12 @@ def alexa():
 
 
 
-@app.route('/alexaListFromTag', methods=['POST'])
+@app.route('/alexaListFromTag', methods=['GET'])
 def alexaListsFromTag():
     """processing handling for alexa AllListsFromTagIntent intent"""
-    tag_name = request.form['tag_name']
-
-    resp = " ".join(s.get_lists_from_tag("books")["list_names"]).lower()
+    tag_name = request.args.get('tag_name')
+    
+    resp = " ".join(s.get_lists_from_tag(tag_name)["list_names"]).lower()
     return str(resp)
 
 
