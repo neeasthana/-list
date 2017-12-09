@@ -34,6 +34,15 @@
       "intent": "AllListReadIntent"
     },
     {
+      "intent": "AllListsFromTagIntent",
+      "slots": [
+        {
+          "name": "tag_name",
+          "type": "AMAZON.LITERAL"
+        },
+      ]
+    },
+    {
       "intent": "AMAZON.HelpIntent"
     }
   ]

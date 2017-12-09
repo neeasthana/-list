@@ -10,6 +10,11 @@ AddToAtTagListIntent add {buying lunch at taco bell|update_item} to my {memories
 AddToAtTagListIntent add {snorkle on the great barrier reef|update_item} to my {bucket|list_name} list within {bucket list|tag_name}
 AddToAtTagListIntent add {good will hunting|update_item} to my {movies|list_name} list within {movies|tag_name}
 AddToAtTagListIntent add {buying proper fruits and vegetables for my groceries|update_item} to my {problems|list_name} list within {ideas|tag_name}
+AllListsFromTagIntent what are my list are in {ideas|tag_name}
+AllListsFromTagIntent what are my list are in {books|tag_name}
+AllListsFromTagIntent what are my list are in {memories|tag_name}
+AllListsFromTagIntent what are my list are in {presents|tag_name}
+AllListsFromTagIntent what are my list are in {sports|tag_name}
 AllListReadIntent what are my list names
 AllListReadIntent what are my lists
 AllListReadIntent what are my tags
