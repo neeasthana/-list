@@ -5,7 +5,13 @@
 
 ## Usage
 
+@list texting app:
 @<*tag name*> #<*list name*> *text*
+
+@list Alexa Skill:
+Open @list
+add <text> to my <*list name> list
+
 
 ## Future features
 
