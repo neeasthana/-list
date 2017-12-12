@@ -8,23 +8,7 @@ from simplenote_interface import SimplenoteInterface
 # GLOBALS
 list_separator = "\n\n\n\n"
 
-
-with open('passwords.json', 'r') as passwords_file:
-    passwords = json.load(passwords_file)
-
-username = passwords["simplenote_username"]
-password = passwords["simplenote_password"]
-
-
-simplenote = simplenote.Simplenote(username, password)
 s = SimplenoteInterface(False)
-"""
-result = simplenote.get_note_list()
-
-print(result)
-
-print(simplenote.get_note("a31b6fa882c94c61ba53c52e0230798c")[0]["content"])
-"""
 
 app = Flask(__name__)
 
@@ -98,8 +82,7 @@ def process(tag, list_name, message_body):
     list_index = s.get_index_from_list_name(tag_entry, tag, list_name)
     
     # get list
-    list_object = simplenote.get_note(tag_entry["list_id"])
-    list_text = list_object[0]["content"]
+    list_text = s.get_list(tag_entry["list_id"])
 
     # update the corresponding list
     updated_list_text = s.add_to_list(list_text, list_index, message_body)

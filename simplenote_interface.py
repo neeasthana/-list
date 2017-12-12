@@ -134,6 +134,13 @@ class SimplenoteInterface:
 
 
 
+
+    def get_list(list_id):
+        list_object = self.simplenote_api.get_note(list_id)
+        return list_object[0]["content"]
+
+
+
 if __name__ == '__main__':
     s = SimplenoteInterface(False)
     p = s.get_lists_from_tag("books")
