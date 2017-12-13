@@ -43,23 +43,24 @@ def sms():
     message_body = request.form['Body']
     
     if check_for_refresh(message_body):
-        return
-
-    message_body = message_body.strip()
-    message_split = message_body.split(" ")
-    if message_split[0][0] is "@":
-        tag = message_split[0][1:]
-        message_body = " ".join(message_split[1:])
+        s.reload_lists()
+        response = "Reloaded lists from simplenote"
     else:
-        raise Exception("Error. Message does not start with a list name")
+        message_body = message_body.strip()
+        message_split = message_body.split(" ")
+        if message_split[0][0] is "@":
+            tag = message_split[0][1:]
+            message_body = " ".join(message_split[1:])
+        else:
+            raise Exception("Error. Message does not start with a list name")
 
-    if message_split[1][0] is "#":
-        list_name = message_split[1][1:]
-        message_body = " ".join(message_split[2:])
-    else:
-        list_name = tag
+        if message_split[1][0] is "#":
+            list_name = message_split[1][1:]
+            message_body = " ".join(message_split[2:])
+        else:
+            list_name = tag
 
-    response = process(tag, list_name, message_body)
+        response = process(tag, list_name, message_body)
 
     # Send response
     resp = MessagingResponse()
