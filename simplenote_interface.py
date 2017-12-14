@@ -88,6 +88,9 @@ class SimplenoteInterface:
 
     ############ ADD TO LIST #############
     def get_lists_from_tag(self, tag):
+        """
+        takes a tag name as input and sends back list names of lists included within that tag
+        """
         tag = _format_list_name(tag)
         with open(dictionary_file_name, 'r') as data_file:
             data = json.load(data_file)
@@ -100,6 +103,9 @@ class SimplenoteInterface:
 
 
     def get_index_from_list_name(self, tag_entry, tag_name, list_name = None):
+        """
+        takes a tag name and list name as input and sends back the index of the list name within that tag
+        """
         if list_name is not None:
             list_name= list_name.upper()
         
@@ -119,6 +125,9 @@ class SimplenoteInterface:
 
 
     def add_to_list(self, list_text, list_index, list_entry):
+        """
+        takes a lext text, list name, and new entry as input and adds the new entry to the list
+        """
         lists_split = list_text.split(list_separator)
         target_list = lists_split[list_index]
         target_list = target_list + "\n- " + list_entry
@@ -129,6 +138,9 @@ class SimplenoteInterface:
 
 
     def update_list(self, tag_id, updated_list_text):
+        """
+        sends back dictionary of update item
+        """
         result = {"key":tag_id, "content":updated_list_text}
         print(self.simplenote_api.update_note(result))
 
@@ -136,6 +148,9 @@ class SimplenoteInterface:
 
 
     def get_list(list_id):
+        """
+        wrapper for get list by id functionality
+        """
         list_object = self.simplenote_api.get_note(list_id)
         return list_object[0]["content"]
 
