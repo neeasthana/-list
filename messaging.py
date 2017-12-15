@@ -38,6 +38,7 @@ def alexaListsFromTag():
 
 @app.route('/sms', methods=['POST'])
 def sms():
+    """process the sms text messages sent from twilio and send a response on success"""
     # Get message parameters - number and message
     number = request.form['From']
     message_body = request.form['Body']
@@ -71,6 +72,7 @@ def sms():
 
 
 def check_for_refresh(message_body):
+    """Checks to ensure that the Refresh keyword was not used"""
     if message_body.strip().upper() is "REFRESH":
         add_keys_and_list_names()
         return True
@@ -79,6 +81,7 @@ def check_for_refresh(message_body):
 
 
 def process(tag, list_name, message_body):
+    """Adds a message_body to a list_name within a tag and saves results via simple note interface"""
     tag_entry = s.get_lists_from_tag(tag)
     list_index = s.get_index_from_list_name(tag_entry, tag, list_name)
     
