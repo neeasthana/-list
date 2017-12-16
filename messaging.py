@@ -36,6 +36,15 @@ def alexaListsFromTag():
 
 
 
+@app.route('/alexaRefresh', methods=['POST'])
+def alexaListsFromTag():
+    """processing handling for alexa AllListsRefreshIntent intent"""
+    s.reload_lists()
+    resp = "Okay. I refreshed your lists"
+    return str(resp)
+
+
+
 @app.route('/sms', methods=['POST'])
 def sms():
     """process the sms text messages sent from twilio and send a response on success"""
